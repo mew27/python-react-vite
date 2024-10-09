@@ -22,9 +22,12 @@ class Api:
         return os.listdir(".")
 
 
-def get_entrypoint():
+def get_entrypoint(debug_mode):
     def exists(path):
         return os.path.exists(os.path.join(os.path.dirname(__file__), path))
+
+    if debug_mode:
+        return "http://localhost:5173"
 
     if exists("../dist/index.html"):  # unfrozen development
         return "../dist/index.html"
@@ -57,9 +60,6 @@ def set_interval(interval):
     return decorator
 
 
-entry = get_entrypoint()
-
-
 @set_interval(1)
 def update_ticker():
     if len(webview.windows) > 0:
@@ -69,8 +69,6 @@ def update_ticker():
 
 
 if __name__ == "__main__":
-    window = webview.create_window("pywebview-react boilerplate", entry, js_api=Api())
-
     if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
         # running in a PyInstaller bundle
         debug_mode = False
@@ -79,5 +77,9 @@ if __name__ == "__main__":
             debug_mode = True
         else:
             debug_mode = False
+
+    entry = get_entrypoint(debug_mode)
+
+    window = webview.create_window("pywebview-react boilerplate", entry, js_api=Api())
 
     webview.start(update_ticker, debug=debug_mode)
