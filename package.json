@@ -4,9 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "preinstall" : "python -m venv env && .\\env\\Scripts\\activate && pip install -r requirements.txt",
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "python:dev": "start /B yarn dev && .\\env\\Scripts\\activate && python .\\backend\\index.py DEBUG",
+    "python:dev": "start /B yarn dev && .\\env\\Scripts\\activate && jurigged .\\backend\\index.py DEBUG",
     "python:build": "yarn build && .\\env\\Scripts\\activate && pyinstaller --distpath executables --workpath py_build index.spec",
     "lint": "eslint .",
     "preview": "vite preview"
