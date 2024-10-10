@@ -15,9 +15,6 @@ Spostati nella cartella repository ed inizializza yarn e l'ambiente python:
 ```
 cd python-react-vite
 yarn
-python -m venv env
-.\env\Scripts\activate
-pip install -r requirements.txt
 ```
 
 I comandi sopra installano tutte le dipendenze yarn, creano l'ambiente virtuale python env, attivano l'ambiente virtuale python e ci installano tutte le dipendenze.
